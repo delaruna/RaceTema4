@@ -132,15 +132,14 @@ cran$ip_id
 cran$package
 cran$country
 
-
 ```
 5. Elige todas las variables entre `r_arch y country` 
 ```{r}
-
+variables <- cran[c(5:9)]
+variables
 ```
 5. Puedes usar el signo (-) para no coger una columna determinada. Selecciona todas las columnas menos las que están entre `date y size` 
 ```{r}
-
 
 
 
