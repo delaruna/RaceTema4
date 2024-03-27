@@ -128,20 +128,20 @@ glimpse(cran)
 
 4. Elige únicamente las variables `ip_id, package, country`
 ```{r}
-cran$ip_id
-cran$package
-cran$country
+cran %>%
+  select(ip_id, package, country)
 
 ```
 5. Elige todas las variables entre `r_arch y country` 
 ```{r}
-variables <- cran[c(5:9)]
-variables
+cran %>%
+  select(r_arch:country)
+
 ```
 5. Puedes usar el signo (-) para no coger una columna determinada. Selecciona todas las columnas menos las que están entre `date y size` 
 ```{r}
-variables = cran[, -c(1, 2, 3)]
-variables
+cran %>%
+  select(-date:-size)
 
 ```
 6. Elige aquellos registros en los que se haya descargado el paquete `plotly`, desde un sistema que ejecuta la versión de R 3.5.1
@@ -194,6 +194,8 @@ cran2 %>%
 ```
 13. Ordena `cran2` según los valores de `country` (ascendente), `r_version` (desdencente) e `ip_id`(ascendente).
 ```{r}
+cran2 %>%
+  arrange(country, desc(r_version), ip_id)
 ```
 14. Selecciona el subconjunto formado por las variables, del `cran`, `ip_id, package y size` 
 en este orden y almacénalas en `cran3`.
