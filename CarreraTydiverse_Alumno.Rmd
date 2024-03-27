@@ -57,10 +57,15 @@ opts_chunk$set(echo=T,message = F, error = F, warning = F, comment = NA, fig.ali
 # Usa `pacman` para cargar las librerías e instalarlas si no están disponibles
 
 ```{r,echo=FALSE}
+packages = c("tidyverse","knitr","reshape2")
+package.check <- lapply(packages, FUN = function(x) {
+  if (!require(x, character.only = TRUE)) {
+    install.packages(x, dependencies = TRUE,repos='http://cran.rediris.es')
+  }
+  library(x, character.only = TRUE)
+})
 
-library(pacman)
-p_load(dplyr,lubridate)
-
+search()
 ```
 
 Todos los ejercicios planteados están relacionados con el uso de las librerías **dplyr, tidyr y lubridate**. Familiarízate con el uso del operador **%>%** para facilitar la compresión del código.
@@ -89,18 +94,7 @@ Se pueden descargar ficheros actuales del `logs` usando la librería https://r-h
 
 **Nota**: El siguiente bloque puede tardar en ejecutarse por lo que solo lo ejecutaremos una vez. Después usaremos la selección de registros almacenada en el fichero Rdata.
 
-
-```{r,eval=FALSE}
-# Fuente de datos http://cran-logs.rstudio.com/
-mydf <- read_csv("./data/2024-03-12.csv")
-
-set.seed(seed=14032024)
-N<-200000
-I<-sample(1:nrow(mydf),size=N,replace=FALSE)
-mydf<-mydf[I,]
-# Guardamos en formato binario, la primera vez que cargamos
-save(file = './data/2024-03-12.Rdata',list=c('mydf'))
-```
+**borro chunk**
 
 Después de la primera carga poner **eval=FALSE** en el *chunk* anterior para acelerar la ejecución.
 
@@ -118,6 +112,8 @@ mydf %>% dim
 ```
 2. Para facilitar el manejo transforma los datos en un tibble `as_tibble` y almacena el resultado con el nombre `cran`, y borra el data frame original (usa `rm`)
 ```{r}
+cran = as_tibble(mydf)
+rm(mydf)
 
 
 ```
